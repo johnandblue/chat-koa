@@ -1,6 +1,6 @@
 'use strict';
 var koa = require('koa'),
-  router = koa.Router();
+  router = require('koa-router');
 
 var Message = require('../models/messages.js')
 

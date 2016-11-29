@@ -18,6 +18,8 @@
   "homepage": "https://github.com/johnandblue/chat-koa#readme",
   "dependencies": {
     "koa": "^1.2.4",
-    "koa-router": "^5.4.0"
+    "koa-bodyparser": "^2.3.0",
+    "koa-router": "^5.4.0",
+    "koa-static": "^2.0.0"
   }
 }

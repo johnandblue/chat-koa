@@ -1,22 +1,18 @@
 
 var koa = require('koa');
 var routes = require('./routes.js')
-var bodyParser = require('body-parser');
+var bodyParser = require('koa-bodyparser');
+var serve = require('koa-static');
 var app = koa();
 
-module.exports = function(app, config) {
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({
-    extended: true
-  }));
-  app.use('',routes);
-
-  return app;
-};
-
-
-app.use(function *(){
-  this.body = 'Hello World Koa';
-});
+app.use(serve('./public'));
+app.use(bodyParser());
+// app.use(bodyParser.urlencoded({
+//   extended: true
+// }));
+// app.use(routes);
 
 app.listen(3000);
+console.log('Listening Barbie Chat Koa...');
+
+module.exports = app;

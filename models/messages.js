@@ -5,9 +5,9 @@ const fs = require('fs')
 const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
 
 
-setInterval(function () {
-  fs.writeFile(dbPath, JSON.stringify(db));
-}, 5000);
+// setInterval(function () {
+//   fs.writeFile(dbPath, JSON.stringify(db));
+// }, 5000);
 
 const Message = {}
 
