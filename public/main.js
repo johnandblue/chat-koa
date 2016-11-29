@@ -1,14 +1,32 @@
 'use strict';
 
+let saveForismatic = function (response) {
+	$.ajax({
+		method: 'POST',
+		url: '/messages',
+		data: {
+			user: 'forismatic',
+			content: response.quoteText + response.quoteAuthor,
+			timestamp: Date.now()
+		},
+		// success: function (data) {
+		// 	renderQuote(data);
+		// },
+	});
+}
+
 function parseQuote(response) {
 	$('.chatbox').append('<div class="userBallon2">'+ response.quoteText + '<p>' + response.quoteAuthor + '</p>' + '</div>' + "<p></p>");
+	saveForismatic(response);
 }
+
+
 
 function renderQuote (quote) {
-	console.log(quote);
-	$('.chatbox').append('<div class="userBallon">'+ quote.content + '</div> ');
+	let classUser = 'userBallon';
+	if (quote.user === 'forismatic') classUser = 'userBallon2';
+	$('.chatbox').append('<div class="'+ classUser +'">'+ quote.content + '</div> ');
 }
-
 
 $(function () {
 
@@ -36,16 +54,14 @@ $(function () {
 		$.ajax({
 			method: "POST",
 			url: '/messages',
-			data: JSON.stringify({
+			data: {
 				user: 'user1',
 				content: newMsg,
 				timestamp: Date.now()
-			}),
-			success: function (data) {
-				renderQuote(data);
 			},
-			dataType: 'json',
-			contentType: 'application/json'
+			// success:
+			// dataType: 'json',
+			// contentType: 'application/json'
 		});
 
 		$.ajax({
@@ -57,15 +73,6 @@ $(function () {
 			}
 		})
 
-		// $.ajax({
-		// 	method: 'POST',
-		// 	url: '/quoteMsgs',
-		// 	data: response.quoteText + response.quoteAuthor,
-		// 	success: function (data) {
-		// 		renderQuote(data);
-		// 	},
-		// 	dataType: 'json'
-		// });
 
 
 	});
@@ -86,5 +93,6 @@ $(function () {
 			},
 			dataType: 'json'
 		});
+		$('.chatbox').html('');
 	});
 });

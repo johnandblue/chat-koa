@@ -5,10 +5,6 @@ const fs = require('fs')
 const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
 
 
-// setInterval(function () {
-//   fs.writeFile(dbPath, JSON.stringify(db));
-// }, 5000);
-
 const Message = {}
 
 Message.getAll = function() {
@@ -18,5 +14,14 @@ Message.getAll = function() {
 Message.postMessage = function(tempMsg) {
   db.msgs.push(tempMsg);
 }
+
+Message.deleteMsgs = function() {
+  db.msgs = [];
+}
+
+
+setInterval(function () {
+  fs.writeFile(dbPath, JSON.stringify(db));
+}, 5000);
 
 module.exports = Message;

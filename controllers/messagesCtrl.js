@@ -1,25 +1,18 @@
 'use strict';
-var koa = require('koa'),
-  router = require('koa-router');
+// var koa = require('koa'),
+//   router = require('koa-router')();
 
 var Message = require('../models/messages.js')
-
-module.exports = function (app) {
-  app.use('/', router);
-};
-
 const messagesCtrl = {};
 
-messagesCtrl.getMessages = function (req, res) {
-  res.json(Message.getAll());
+messagesCtrl.getMessages = function* () {
+  this.body = Message.getAll();
 };
-
 
 var createMsg = function (body) {
   let timestamp = Date.now();
   let user = body.user;
   let content = body.content;
-
   return {
     timestamp,
     user,
@@ -27,14 +20,15 @@ var createMsg = function (body) {
   };
 }
 
-messagesCtrl.postMessage = function (req, res) {
-  let tempMsg = createMsg(req.body);
-  console.log(req.body);
-  Message.postMessage(tempMsg);
-  // console.log(tempMsg);
-  res.status(201);
-  res.end()
+messagesCtrl.deleteMsgs = function* () {
+  Message.deleteMsgs();
 }
 
+messagesCtrl.postMessage = function* () {
+  console.log('request body',this.body);
+  let tempMsg = createMsg(this.request.body);
+  Message.postMessage(tempMsg);
+  this.status = 201;
+}
 
 module.exports = messagesCtrl
