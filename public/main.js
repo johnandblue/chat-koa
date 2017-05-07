@@ -30,7 +30,6 @@ function renderQuote (quote) {
 
 $(function () {
 
-
 	$.ajax({
 		method: "GET",
 		url: '/messages',
@@ -72,8 +71,6 @@ $(function () {
 
 			}
 		})
-
-
 
 	});
 	$(".userMsg").keyup(function(event){
