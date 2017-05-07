@@ -21,7 +21,9 @@ Message.deleteMsgs = function() {
 
 
 setInterval(function () {
-  fs.writeFile(dbPath, JSON.stringify(db));
+  fs.writeFile(dbPath, JSON.stringify(db), (err) => {
+    if (err) throw err;
+  });
 }, 5000);
 
 module.exports = Message;
